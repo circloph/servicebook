@@ -1,0 +1,63 @@
+mutation login($login: String, $password: String) {
+    login(login : { login: $login, password: $password }) {
+        token
+        role
+        userId
+    }
+}
+
+mutation registerClient($firstName: String, $middleName: String, $lastName: String, $login: String, $password: String, $numberPhone: String) {
+    registerClient(client: { firstName: $firstName, middleName: $middleName, lastName: $lastName, login: $login, password: $password, numberPhone: $numberPhone }) {
+        userId
+    }
+}
+
+mutation updateBook($bookId: Int, $title: String, $genre: String, $description: String, $yearOfProduction: Int) {
+    updateBook(bookId: $bookId, book: { title: $title, genre: $genre, description: $description, yearOfProduction: $yearOfProduction }) {
+        id
+        title 
+        genre
+        description
+        yearOfProduction
+    }
+}
+
+mutation updateAuthor($authorId: Int, $firstName: String, $middleName: String, $lastName: String, $shortBiography: String) {
+    updateAuthor(authorId: $authorId, author: { firstName: $firstName, middleName: $middleName, lastName: $lastName, shortBiography: $shortBiography }) {
+        firstName
+        middleName
+        lastName
+        shortBiography
+    }
+}
+
+mutation createBook($title: String, $genre: String, $description: String, $yearOfProduction: Int) {
+    createBook(book: { title: $title, genre: $genre, description: $description, yearOfProduction: $yearOfProduction}) {
+        id
+        title
+        genre
+        description
+        yearOfProduction
+    }
+}
+
+mutation addAuthor($bookId: Int, $firstName: String, $middleName: String, $lastName: String, $shortBiography: String) {
+    addAuthor(bookId: $bookId, author: { firstName: $firstName, middleName: $middleName, lastName: $lastName, shortBiography: $shortBiography }) {
+        id
+        title
+        genre
+    }
+}
+
+
+mutation addReview($text: String, $mark: Int, $bookId: Int, $userId: Int) {
+    createReviews(reviews: { text: $text, mark: $mark, bookId: $bookId, userId: $userId }) {
+        id
+    }
+}
+
+mutation changeReview($reviewId: Int, $text: String, $mark: Int, $bookId: Int, $userId: Int) {
+    updateReviews(reviewId: $reviewId, review: { text: $text, mark: $mark, bookId: $bookId, userId: $userId }) {
+        id
+    }
+}

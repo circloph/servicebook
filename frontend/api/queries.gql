@@ -1,0 +1,64 @@
+
+  query getBooks($page:Int, $size: Int, $fieldForSearch: String, $value: String) {
+    getBooks(page: $page, size: $size, fieldForSearch: $fieldForSearch, value: $value) {
+      books {
+        id
+        title 
+        genre
+        yearOfProduction
+        authors {
+          id
+          firstName
+          middleName
+          lastName
+        }
+      averageMark
+      }
+      amountOfBooks
+    }
+  }
+
+
+query getInfoAboutClient($login: String) {
+    getInfoAboutClient(login: $login) {
+      userId
+      firstName
+      middleName
+      lastName
+      role
+      numberPhone
+    }
+}
+
+query getInfoAboutBook($bookId:Int!) {
+    getInfoAboutBook(bookId: $bookId) {
+      id
+      title
+      genre
+      description
+      yearOfProduction
+      averageMark
+      amountOfReviews
+      authors {
+        firstName
+        middleName
+        lastName
+      }
+      reviews {
+        id
+        userId
+        text
+        mark
+      }
+    }
+}
+
+query getInfoAboutAuthor($authorId:Int!) {
+    getInfoAboutAuthor(authorId: $authorId) {
+      id
+      firstName
+      middleName
+      lastName
+      shortBiography
+    }
+}
