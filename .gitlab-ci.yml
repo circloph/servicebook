@@ -1,0 +1,11 @@
+image: maven_3.8.5_jdk17:latest
+
+
+compile_test:
+  script:
+    - ./gradlew build --info --build-cache
+
+
+  tags:
+    - docker
+

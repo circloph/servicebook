@@ -1,0 +1,128 @@
+directive @uppercase on FIELD_DEFINITION
+
+directive @Size(min : Int = 0, max : Int = 2147483647, message : String = "graphql.validation.Size.message")
+on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION | FIELD| QUERY | SCALAR
+
+input AuthorInput {
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	shortBiography: String
+}
+
+type AuthorOutput {
+	id: Int,
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	shortBiography: String
+}
+
+type BookOutput {
+	id: Int,
+	title: String,
+	genre: String,
+	description: String,
+	yearOfProduction: Int,
+	averageMark: Float,
+	amountOfReviews: Int,
+	authors: [AuthorOutput],
+	reviews: [ReviewsOutput]
+}
+
+type BooksOutput {
+	books: [BookOutput],
+	amountOfBooks: Int
+}
+
+input BookInput {
+	title: String,
+	genre: String,
+	description: String,
+	yearOfProduction: Int
+}
+
+type ReviewsOutput {
+	id: Int,
+	userId: Int,
+	bookId: Int,
+	text: String,
+	mark: Int
+}
+
+input ReviewsInput {
+	text: String,
+	mark: Int,
+	bookId: Int,
+	userId: Int
+}
+
+type ClientOutput {
+	userId: ID!,
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	role: String,
+	numberPhone: String
+}
+
+input ClientInput {
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	login: String,
+	password: String,
+	numberPhone: String
+}
+
+type AdministrationOutput {
+	userId: ID!,
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	role: String,
+	position: String
+}
+
+input AdministrationInput {
+	firstName: String,
+	middleName: String,
+	lastName: String,
+	login: String,
+	password: String,
+	position: String
+}
+
+type Query {
+	getBooks(page: Int, size: Int, fieldForSearch: String, value: String): BooksOutput
+	getInfoAboutBook(bookId: Int!): BookOutput
+	getInfoAboutAuthor(authorId: Int!): AuthorOutput
+	getInfoAboutClient(login: String): ClientOutput
+}
+
+type LoginResponse {
+	token: String
+	role: String
+	userId: Int
+}
+
+input LoginInput {
+	login: String,
+	password: String
+}
+
+type Mutation {
+	createAuthor(author: AuthorInput): AuthorOutput
+	createBook(book: BookInput): BookOutput
+	registerClient(client: ClientInput): ClientOutput
+	registerAdmin(administration: AdministrationInput): AdministrationOutput
+	login(login: LoginInput): LoginResponse
+	createReviews(reviews: ReviewsInput): ReviewsOutput
+	addBook(authorId: Int, book: BookInput): AuthorOutput
+	addAuthor(bookId: Int, author: AuthorInput): BookOutput
+	updateReviews(reviewId: Int, review: ReviewsInput): ReviewsOutput
+	updateBook(bookId: Int, book: BookInput): BookOutput
+	updateAuthor(authorId: Int, author: AuthorInput): AuthorOutput
+	hello(value: String! @Size(min: 3, max: 6)): String
+	test(value: String! @Size(min : 3, max : 5)): String
+}
